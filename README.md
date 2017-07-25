@@ -2,7 +2,7 @@
 More information will follow some day ;P
 
 ### functions.php
-```
+```php
 <?php
 
 define('CW_LIB_FOLDER',           __DIR__ . '/lib');
@@ -16,7 +16,7 @@ foreach(glob(__DIR__ . '/initializers/*.php') as $file)
 
 ### initializers/
 ##### 01_autoload.php
-```
+```php
 <?php
 
 spl_autoload_register(function ($class_name) {
@@ -32,7 +32,7 @@ spl_autoload_register(function ($class_name) {
 
 
 ##### 02_wordpress.php
-```
+```php
 <?php
 
 // fix exception with generic server names
@@ -44,7 +44,7 @@ add_filter( 'wp_mail_from', function() {
 ```
 
 ##### 03_options.php
-```
+```php
 <?php
 
 global $childOptions;
@@ -75,7 +75,7 @@ $childOptions = new \cw\wp\Options(
 ```
 
 ##### 04_assets.php
-```
+```php
 <?php
 
 global $childOptions;
@@ -104,7 +104,7 @@ $childAssets->addParentStylesheet('style.css')
 ```
 
 ##### 05_divi.php
-```
+```php
 <?php
 
 cw\divi\module\Helper::register(
@@ -128,7 +128,7 @@ $childMenu->addMenu('footer-1-menu')
 
 ### modules/
 ##### hallo-world/Module.php
-```
+```php
 <?php
 
 class ModuleHalloWorld extends cw\divi\module\Extension {
@@ -187,7 +187,7 @@ new ModuleTherapyMethod(__DIR__);
 ```
 
 ##### hallo-world/views/module.php
-```
+```php
 <div class="content-wrapper">
   <div class="headline-wrapper">
     <?= $this->tag($headline_tag, $headline, ['class' => 'module-headline']) ?>
@@ -207,7 +207,7 @@ new ModuleTherapyMethod(__DIR__);
 ```
 
 ##### hallo-world/css/module.sass
-```
+```sass
 @import "variables"
 
 @import "mixins/css/css3"
