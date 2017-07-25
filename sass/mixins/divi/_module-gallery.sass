@@ -1,0 +1,19 @@
+@mixin divi-module-gallery($nr: '')
+	@if $nr == ''
+		.et_pb_gallery
+			@content
+	@else
+		.et_pb_gallery_#{$nr}
+			@content
+
+@mixin divi-module-gallery-items
+	.et_pb_gallery_items
+		@content
+
+@mixin divi-module-gallery-item
+	.et_pb_gallery_item
+		@content
+
+@mixin divi-module-gallery-image
+	.et_pb_gallery_image
+		@content

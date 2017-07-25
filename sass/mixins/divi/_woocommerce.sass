@@ -1,0 +1,59 @@
+
+@mixin with-woocommerce-breadcrumb
+	.woocommerce-breadcrumb
+		@content
+
+@mixin with-woocommerce-products
+	.woocommerce
+		.products
+			@content
+
+@mixin with-product
+	.product
+		@content
+
+@mixin with-product-image
+	.et_shop_image
+		@content
+
+@mixin with-product-image-icon-overlay
+	+with-product-image
+		.et_overlay
+			@content
+
+//single-product
+@mixin with-woocommerce-single-product
+	body.single-product
+		@content
+
+@mixin with-product
+	.product
+		@content
+
+@mixin with-product-gallery
+	.woocommerce-product-gallery
+		@content
+
+@mixin with-product-summary
+	.summary
+		@content
+
+@mixin with-summary-title
+	.product_title
+		@content
+
+@mixin with-summary-meta
+	.product_meta
+		@content
+
+@mixin with-product-tabs
+	.woocommerce-tabs
+		@content
+
+@mixin with-wc-tabs
+	ul.wc-tabs.tabs
+		@content
+
+@mixin with-tabs-panel
+	.woocommerce-Tabs-panel
+		@content

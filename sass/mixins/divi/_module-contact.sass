@@ -1,0 +1,37 @@
+@mixin divi-modul-contact-form($nr: '')
+  @if $nr == ''
+    .et_pb_contact_form
+      @content
+  @else
+    .et_pb_contact_form_#{$nr}
+      @content
+
+@mixin divi-modul-contact-message
+  .et-pb-contact-message
+    @content
+
+@mixin divi-modul-contact-headline
+  .et_pb_contact_main_title
+    @content
+
+
+@mixin divi-modul-contact-form-field($nr: '')
+  @if $nr == ''
+    .et_pb_contact_field
+      @content
+  @else
+    .et_pb_contact_field_#{$nr}
+      @content
+
+@mixin divi-modul-contact-form-field-half($nr: '')
+  @if $nr == ''
+    .et_pb_contact_field_half
+      @content
+  @else
+    .et_pb_contact_field_half_#{$nr}
+      @content
+
+@mixin divi-modul-contact-submit-button
+  .et_contact_bottom_container
+    .et_pb_contact_submit
+      @content

@@ -1,0 +1,71 @@
+@import "divi/divi-menu"
+@import "divi/module-blog-post"
+@import "divi/module-contact"
+@import "divi/module-person"
+@import "divi/module-gallery"
+@import "divi/module-slider"
+@import "divi/module-text"
+@import "divi/woocommerce"
+
+
+@mixin custom-divi-module($module-name: '')
+  .#{$module-name}
+    @content
+
+// ########### section/row/column ###########
+
+@mixin divi-section($nr: '')
+  @if $nr == ''
+    .et_pb_section
+      @content
+  @else
+    .et_pb_section_#{$nr}
+      @content
+
+@mixin divi-row($nr: '')
+  @if $nr == ''
+    .et_pb_row
+      @content
+  @else
+    .et_pb_row_#{$nr}
+      @content
+
+@mixin divi-column($nr: '')
+  @if $nr == ''
+    .et_pb_column
+      @content
+  @else
+    .et_pb_column_#{$nr}
+      @content
+
+// ########### container ###########
+
+@mixin divi-container
+  .et_pb_container
+    @content
+
+
+
+
+
+// ########### images ###########
+
+@mixin divi-image
+  .et_pb_image
+    @content
+
+@mixin divi-image-overlay
+  .et_overlay
+    @content
+
+
+
+// ########### buttons ###########
+
+@mixin divi-button
+  .et_pb_button
+    @content
+
+@mixin divi-more-button
+  .et_pb_more_button
+    @content

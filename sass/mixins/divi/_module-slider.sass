@@ -1,0 +1,45 @@
+@mixin divi-modul-fullwidth-slider($nr)
+	.et_pb_fullwidth_slider_#{$nr}
+		@content
+
+@mixin divi-module-slider
+	.et_pb_slider
+		@content
+
+@mixin divi-modul-fullwidth-post-slider($nr: '')
+	@if $nr == ''
+		.et_pb_fullwidth_post_slider
+			@content
+	@else
+		.et_pb_fullwidth_post_slider_#{$nr}
+			@content
+
+// ########### these mixins work for all divi-sliver-modules ###########
+
+@mixin divi-slider-slides
+	.et_pb_slides
+		@content
+
+@mixin divi-slider-slide
+	.et_pb_slide
+		@content
+
+@mixin divi-slider-container-inner
+	.et_pb_slider_container_inner
+		@content
+
+@mixin divi-slide-description
+	.et_pb_slide_description
+		@content
+
+@mixin divi-slide-overlay-container
+	.et_pb_slide_overlay_container
+		@content
+
+@mixin divi-slide-description-title
+	.et_pb_slide_title
+		@content
+
+@mixin divi-slide-description-content
+	.et_pb_slide_content
+		@content

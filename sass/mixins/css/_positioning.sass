@@ -1,0 +1,38 @@
+@mixin inline-block
+  display:  inline-block
+
+@mixin center-block
+  +block
+  margin-left: auto
+  margin-right: auto
+
+@mixin block
+  display: block
+
+@mixin inline
+  display: inline
+
+@mixin absolute
+  position: absolute
+
+@mixin abs-pos ($top: auto, $right: auto, $bottom: auto, $left: auto)
+  +absolute
+  top: $top
+  right: $right
+  bottom: $bottom
+  left: $left
+
+@mixin relative
+  position: relative
+
+@mixin fixed
+  position: fixed
+
+@mixin static
+  position: static
+
+@mixin left
+  float: left
+
+@mixin right
+  float: right

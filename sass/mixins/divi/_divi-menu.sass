@@ -1,0 +1,27 @@
+@mixin with-mobile-menu
+	#et_mobile_nav_menu
+		@content
+
+@mixin set-divi-burger-menu-breakpoint($width)
+	#top-menu-nav, #top-menu
+		display: none
+	#et_top_search
+		display: none
+	#et_mobile_nav_menu
+		display: block
+	.et_fixed_nav #main-header, .et_fixed_nav #top-header
+		position: absolute
+
+	+min-width($width)
+		.et_fixed_nav #main-header, .et_fixed_nav #top-header
+			position: fixed
+		#top-menu-nav, #top-menu
+			display: block
+		#et_top_search
+			display: block
+		#et_mobile_nav_menu
+			display: none
+
+@mixin make-divi-header-unfixed
+	.et_fixed_nav #main-header, .et_fixed_nav #top-header
+		position: absolute !important

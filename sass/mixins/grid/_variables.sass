@@ -1,0 +1,20 @@
+$grid-columns: 12 !default
+
+$screen-xs: 480px !default
+$screen-sm: 768px !default
+$screen-md: 992px !default
+$screen-lg: 1200px !default
+
+$container-sm: 720px !default
+$container-md: 940px !default
+$container-lg: 1140px !default
+
+$screen-xs-min: $screen-xs !default
+$screen-sm-min: $screen-sm !default
+$screen-md-min: $screen-md !default
+$screen-lg-min: $screen-lg !default
+
+// So media queries don't overlap when required, provide a maximum
+$screen-xs-max: ($screen-sm-min - 1) !default
+$screen-sm-max: ($screen-md-min - 1) !default
+$screen-md-max: ($screen-lg-min - 1) !default

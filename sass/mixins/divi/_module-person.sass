@@ -1,0 +1,23 @@
+@mixin divi-modul-person-team-member($nr: '')
+	@if $nr == ''
+		.et_pb_team_member
+			@content
+	@else
+		.et_pb_team_member_#{$nr}
+			@content
+
+@mixin divi-modul-person-team-member-image
+	.et_pb_team_member_image
+		@content
+
+@mixin divi-modul-person-team-member-description
+	.et_pb_team_member_description
+		@content
+
+@mixin divi-modul-person-team-member-position
+	.et_pb_member_position
+		@content
+
+@mixin divi-modul-person-team-member-social
+	.et_pb_member_social_links
+		@content

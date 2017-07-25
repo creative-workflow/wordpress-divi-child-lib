@@ -1,0 +1,102 @@
+*
+  box-sizing: border-box
+
+@mixin make-container-fluid
+  margin-right: auto
+  margin-left: auto
+  +clearfix
+
+@mixin make-container
+  +make-container-fluid
+
+  +min-width-sm
+    width: $container-sm
+
+  +min-width-md
+    width: $container-md
+
+  +min-width-lg
+    width: $container-lg
+
+@mixin make-row
+  +clearfix
+
+// xs columns
+@mixin make-xs-column($columns)
+  position: relative
+  float: left
+  width: percentage(($columns / $grid-columns))
+  min-height: 1px
+
+@mixin make-xs-column-offset($columns)
+  margin-left: percentage(($columns / $grid-columns))
+
+@mixin make-xs-column-push($columns)
+  left: percentage(($columns / $grid-columns))
+
+@mixin make-xs-column-pull($columns)
+  right: percentage(($columns / $grid-columns))
+
+
+// sm columns
+@mixin make-sm-column($columns)
+  position: relative
+  min-height: 1px
+  +min-width-sm
+    float: left
+    width: percentage(($columns / $grid-columns))
+
+@mixin make-sm-column-offset($columns)
+  +min-width-sm
+    margin-left: percentage(($columns / $grid-columns))
+
+@mixin make-sm-column-push($columns)
+  +min-width-sm
+    left: percentage(($columns / $grid-columns))
+
+@mixin make-sm-column-pull($columns)
+  +min-width-sm
+    right: percentage(($columns / $grid-columns))
+
+
+// Generate the medium columns
+@mixin make-md-column($columns)
+  position: relative
+  min-height: 1px
+  +min-width-md
+    float: left
+    width: percentage(($columns / $grid-columns))
+
+@mixin make-md-column-offset($columns)
+  +min-width-md
+    margin-left: percentage(($columns / $grid-columns))
+
+@mixin make-md-column-push($columns)
+  +min-width-md
+    left: percentage(($columns / $grid-columns))
+
+@mixin make-md-column-pull($columns)
+  +min-width-md
+    right: percentage(($columns / $grid-columns))
+
+
+
+// Generate the large columns
+@mixin make-lg-column($columns)
+  position: relative
+  min-height: 1px
+  +min-width-lg
+    float: left
+    width: percentage(($columns / $grid-columns))
+
+@mixin make-lg-column-offset($columns)
+  +min-width-lg
+    margin-left: percentage(($columns / $grid-columns))
+
+@mixin make-lg-column-push($columns)
+  +min-width-lg
+    left: percentage(($columns / $grid-columns))
+
+@mixin make-lg-column-pull($columns)
+  +min-width-lg
+    right: percentage(($columns / $grid-columns))

@@ -1,0 +1,68 @@
+@import 'variables'
+
+@mixin max-width($width)
+  @media (max-width: $width)
+    @content
+
+@mixin min-width($width)
+  @media (min-width: $width)
+    @content
+
+// min-width: $screen-xs
+@mixin min-width-xxs
+  @content
+
+@mixin max-width-xxs
+  @media (max-width: $screen-xs-min)
+    @content
+
+@mixin min-width-xs
+  @media (min-width: $screen-xs-min)
+    @content
+
+// max-width: $screen-xs
+@mixin max-width-xs
+  @media (max-width: $screen-xs-max)
+    @content
+
+// min-width: $screen-sm
+@mixin min-width-sm
+  @media (min-width: $screen-sm-min)
+    @content
+
+// max-width: $screen-sm
+@mixin max-width-sm
+  @media (max-width: $screen-sm-max)
+    @content
+
+// min-width: $screen-md
+@mixin min-width-md
+  @media (min-width: $screen-md-min)
+    @content
+
+// max-width: $screen-md
+@mixin max-width-md
+  @media (max-width: $screen-md-max)
+    @content
+
+// min-width: $screen-lg
+@mixin min-width-lg
+  @media (min-width: $screen-lg-min)
+    @content
+
+// hide element in specific viewport range
+@mixin hide-xs
+  @media (max-width: $screen-xs-max)
+    display: none
+
+@mixin hide-sm
+  @media (min-width: $screen-sm-min) and (max-width: $screen-sm-max)
+    display: none
+
+@mixin hide-md
+  @media (min-width: $screen-md-min) and (max-width: $screen-md-max)
+    display: none
+
+@mixin hide-lg
+  @media (min-width: $screen-lg-min)
+    display: none

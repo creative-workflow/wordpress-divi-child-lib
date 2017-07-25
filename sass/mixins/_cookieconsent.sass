@@ -1,0 +1,12 @@
+@mixin with-cookie-consent($position: fixed, $top-or-bottom: bottom)
+	.cc-banner
+		position: $position
+		@if $top-or-bottom == 'bottom'
+			bottom: 0
+		@else
+			top: 0
+		width: 100%
+		z-index: 100
+		&.cc-invisible
+			display: none
+		@content

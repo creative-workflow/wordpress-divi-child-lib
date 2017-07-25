@@ -1,0 +1,25 @@
+@mixin divi-module-blog($nr: '')
+	@if $nr == ''
+		.et_pb_blog
+			@content
+	@else
+		.et_pb_blog_#{$nr}
+			@content
+
+// ########### these mixins work for all divi-posts ###########
+
+@mixin divi-module-blog-grid-wrapper
+	.et_pb_blog_grid_wrapper
+		@content
+
+@mixin divi-posts
+	.et_pb_posts
+		@content
+
+@mixin divi-post
+	.et_pb_post
+		@content
+
+@mixin divi-post-meta-wrapper
+	.et_post_meta_wrapper
+		@content
