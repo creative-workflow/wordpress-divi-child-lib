@@ -1,6 +1,11 @@
 # wordpress-divi-child-lib
 More information will follow some day ;P
 
+### setup
+```
+git submodule add https://github.com/creative-workflow/wordpress-divi-child-lib.git ./wordpress/wp-content/themes/child/lib/cw
+```
+
 ### functions.php
 ```php
 <?php
