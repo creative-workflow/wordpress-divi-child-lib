@@ -27,7 +27,7 @@ foreach(glob(__DIR__ . '/initializers/*.php') as $file)
 <?php
 
 spl_autoload_register(function ($class_name) {
-  $file_name = str_replace(['\\', '_'], '/', $class_name).'.php';
+  $file_name = str_replace(['\\'], '/', $class_name).'.php';
 
   $file_path = CW_LIB_FOLDER . '/' . $file_name;
   if(file_exists($file_path))
@@ -37,6 +37,7 @@ spl_autoload_register(function ($class_name) {
   if(file_exists($file_path))
     include $file_path;
 });
+
 
 ```
 
