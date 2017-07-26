@@ -61,6 +61,7 @@ add_filter( 'wp_mail_from', function() {
 global $childOptions;
 
 $childOptions = new \cw\wp\admin\Options('child_options');
+
 $childOptions->adminBarName('Page-Options')
              ->typeText('global_footer_post_id',
                         'ID des Footer-Posts (Divi-Bibliothek)')
