@@ -127,13 +127,71 @@ cw\divi\module\Helper::register(
 ```
 
 ##### 06_menu.php
-```
+```php
 <?php
 $childMenu = new \cw\wp\Menu();
 
 $childMenu->addMenu('footer-1-menu')
           ->addMenu('footer-2-menu')
           ->addMenu('footer-3-menu');
+```
+
+##### 07_custom_post_types.php
+```php
+<?php
+
+$postType = new \cw\wp\custom\PostType('job_post');
+$postType->typePage()
+         ->isPublic()
+         ->slug('jobs')
+         ->hasArchive(false)
+         ->isHierarchical(false)
+         ->isPubliclyQueryable()
+         ->showInUi()
+         ->showInMenu()
+         ->supportsTitle()
+         ->supportsEditor()
+         ->supportsThumbnail()
+         ->supportsRevisions()
+         ->supportsPageAttributes()
+         ->supportsPostFormats()
+         ->menuPositionBelowPosts()
+         ->name('Job-Board')
+         ->singularName('Stellenanzeige')
+         ->menuName('Job-Board')
+         ->labelAddNew('Anzeige erstellen')
+         ->adminBarName('Job-Board')
+         ->publish();
+
+$taxanomy = new \cw\wp\custom\Taxanomy('job_place');
+$taxanomy->setObjectType($postType)
+         ->isHierarchical(false)
+         ->showInUi()
+         ->showAdminColumn()
+         ->queryVar(true)
+         ->slug('place')
+         ->name('Standorte')
+         ->publish();
+
+$taxanomy = new \cw\wp\custom\Taxanomy('job_category');
+$taxanomy->setObjectType($postType)
+         ->isHierarchical(false)
+         ->showInUi()
+         ->showAdminColumn()
+         ->queryVar(true)
+         ->slug('category')
+         ->name('Kategorien')
+         ->publish();
+
+$taxanomy = new \cw\wp\custom\Taxanomy('job_position');
+$taxanomy->setObjectType($postType)
+         ->isHierarchical(false)
+         ->showInUi()
+         ->showAdminColumn()
+         ->queryVar(true)
+         ->slug('position')
+         ->name('Positionen')
+         ->publish();
 ```
 
 ### modules/
