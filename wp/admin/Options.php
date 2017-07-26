@@ -1,14 +1,14 @@
 <?php
 
-namespace cw\wp;
+namespace cw\wp\admin;
 
 class Options{
-  public $groupName;
+  public $id;
   public $menuName;
-  public $options;
+  public $options = [];
 
-  public function __construct($groupName, $menuName, $options){
-    $this->groupName = $groupName;
+  public function __construct($id, $menuName = '', $options = []){
+    $this->id = $id;
     $this->menuName  = $menuName;
     $this->options   = $options;
     $this->bootstrap();
@@ -19,17 +19,42 @@ class Options{
     add_action( 'admin_menu', [$this, 'createMenu'] );
   }
 
+  public function adminBarName($name){
+    $this->menuName = $name;
+    return $this;
+  }
+
+  public function typeText($id, $displayName, $default = null){
+    $this->options[$id]= [
+      'display_name' => $displayName,
+      'type'         => 'text',
+      'default'      => $default
+    ];
+
+    return $this;
+  }
+
+  public function typePlain($id, $displayName, $default = null){
+    $this->options[$id]= [
+      'display_name' => $displayName,
+      'type'         => 'plain',
+      'default'      => $default
+    ];
+
+    return $this;
+  }
+
   public function createMenu() {
     add_menu_page($this->menuName,
                   $this->menuName,
                   'administrator',
-                  $this->groupName,
+                  $this->id,
                   [$this, 'renderSettingsPage']);
   }
 
   public function registerSettings() {
     foreach($this->options as $optionName => $optionConfig)
-      register_setting( $this->groupName, $optionName );
+      register_setting( $this->id, $optionName );
   }
 
   public function toJsObject(){
@@ -37,7 +62,7 @@ class Options{
     foreach($this->options as $optionName => $optionConfig)
       $options[] = "'$optionName': '".get_option($optionName)."'";
 
-     return 'var '.$this->groupName.' = { '. implode(',', $options) .' };';
+     return 'var '.$this->id.' = { '. implode(',', $options) .' };';
   }
 
   public function toJsFile($file){
@@ -48,8 +73,8 @@ class Options{
     echo '<div class="wrap wordpress-options">';
       echo '<h1>'.$this->menuName.'</h1>';
       echo '<form method="post" action="options.php">';
-        settings_fields( $this->groupName );
-        do_settings_sections( $this->groupName );
+        settings_fields( $this->id );
+        do_settings_sections( $this->id );
 
         echo '<table class="form-table" style="width: 100%">';
         foreach($this->options as $optionName => $optionConfig){

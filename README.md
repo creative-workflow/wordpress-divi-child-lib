@@ -60,28 +60,18 @@ add_filter( 'wp_mail_from', function() {
 
 global $childOptions;
 
-$childOptions = new \cw\wp\Options(
-  'child_options',
-  'Page-Options',
-  [
-    'global_footer_post_id' => [
-      'display_name' => 'ID des Footer-Posts (Divi-Bibliothek)',
-      'type'         => 'text',
-      'default'      => ''
-    ],
-    'color_info' => [
-      'display_name' => 'Farbinfo',
-      'type'         => 'plain',
-      'default'      => '
-        <div class="theme-color green">
-          <div class="color-monitor" style="background-color: #72ac4d"></div>
-          <b>hex:</b> #72ac4d <br>
-          <b>rgb:</b> rgba(114, 172, 77, 1)
-        </div>
-      '
-    ]
-  ]
-);
+$childOptions = new \cw\wp\admin\Options('child_options');
+$childOptions->adminBarName('Page-Options')
+             ->typeText('global_footer_post_id',
+                        'ID des Footer-Posts (Divi-Bibliothek)')
+
+             ->typePlain('color_info',
+                         'Farbinfo',
+                         '<div class="theme-color green">
+                           <div class="color-monitor" style="background-color: #72ac4d"></div>
+                           <b>hex:</b> #72ac4d <br>
+                           <b>rgb:</b> rgba(114, 172, 77, 1)
+                         </div>');
 
 ```
 
@@ -130,7 +120,7 @@ cw\divi\module\Helper::register(
 ##### 06_menu.php
 ```php
 <?php
-$childMenu = new \cw\wp\Menu();
+$childMenu = new \cw\wp\Menus();
 
 $childMenu->addMenu('footer-1-menu')
           ->addMenu('footer-2-menu')

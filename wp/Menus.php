@@ -2,7 +2,7 @@
 
 namespace cw\wp;
 
-class Menu{
+class Menus{
   public $menus = [];
 
   public function __construct(){
@@ -22,7 +22,7 @@ class Menu{
   public function addMenu($name, $translationKey = null){
     if($translationKey == null)
       $translationKey = $name;
-      
+
     $this->menus[$name] = __($translationKey);
 
     return $this;
