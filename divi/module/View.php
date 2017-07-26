@@ -3,9 +3,10 @@
 namespace cw\divi\module;
 
 class View{
+  use \cw\view\helpers\traits\Html;
+
   protected $variables = [];
   protected $parent;
-  use \cw\view\helpers\traits\Html;
 
   public function __construct(\cw\divi\module\Extension $parent){
     $this->parent = $parent;
@@ -20,7 +21,7 @@ class View{
         'view_attributes'  => $variables,
         'data'             => $this->renderData(),
         'module_id'        => $this->getModuleIdWithAttributeIfPresent(),
-        'main_css_class'   => $this->parent->main_css_class
+        'main_css_classes' => implode(' ', $this->getCssClasses())
     ]);
   }
 
@@ -48,6 +49,18 @@ class View{
     return implode(' ', $tmp);
   }
 
+  public function getCssClasses(){
+    $classes = [$this->parent->main_css_class];
+
+    if(isset($this->variables['classes']))
+      $classes = array_merge($classes, $this->variables['classes']);
+
+    if($this->getModuleClassIfPresent())
+      $classes[] = $this->getModuleClassIfPresent();
+
+    return $classes;
+  }
+
   public function getModuleClassIfPresent(){
     if(!isset($this->variables['module_class']))
       return '';
@@ -55,6 +68,7 @@ class View{
     $module_class = $this->variables['module_class'];
     $module_class = \ET_Builder_Element::add_module_order_class( $module_class, $function_name );
     $module_class = $module_class ? sprintf( ' %1$s', esc_attr( ltrim( $module_class ) ) ) : '';
+
     return $module_class;
   }
 
@@ -67,9 +81,8 @@ class View{
     return $module_id;
   }
 
+  # delegate unknown calls to parent module
   public function __call($method, $args) {
-    return call_user_func_array($this->parent, $args);
+    return call_user_func_array([$this->parent, $method], $args);
   }
-
-
 }
