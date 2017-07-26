@@ -109,6 +109,10 @@ $childAssets->addParentStylesheet('style.css')
 ```php
 <?php
 
+cw\divi\Helper::enableEditorForCustomPostTypes();
+
+cw\divi\Helper::enableLibraryForCustomLayouts();
+
 cw\divi\module\Helper::register(
   glob(CW_DIVI_MODULES_FOLDER . '/**/*Module*.php')
 );
