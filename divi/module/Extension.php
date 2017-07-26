@@ -5,8 +5,8 @@ namespace cw\divi\module;
 class Extension extends \ET_Builder_Module {
   protected $groups = [];
   protected $view   = null;
-  public $path = null;
-  protected $uri  = null;
+  protected $uri    = null;
+  public    $path   = null;
 
   public function __construct($path = null){
     parent::__construct();
