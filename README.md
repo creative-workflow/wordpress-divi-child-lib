@@ -157,6 +157,11 @@ $postType->typePage()
          ->menuName('Job-Board')
          ->labelAddNew('Anzeige erstellen')
          ->adminBarName('Job-Board')
+         ->addMetaBox(
+             (new \cw\wp\custom\MetaBox('task'))
+               ->title('Aufgaben')
+               ->typeHtml()
+         )
          ->publish();
 
 $taxanomy = new \cw\wp\custom\Taxanomy('job_place');

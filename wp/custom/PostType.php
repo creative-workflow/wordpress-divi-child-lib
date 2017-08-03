@@ -38,6 +38,11 @@ class PostType{
     return $this;
   }
 
+  public function addMetaBox(\cw\wp\custom\MetaBox $box){
+    $box->screen($this->id);
+    return $this;
+  }
+
   public function publish(){
     $args           = $this->args;
     $args['labels'] = $this->labels;
