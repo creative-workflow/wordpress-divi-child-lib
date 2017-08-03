@@ -44,6 +44,18 @@ class Taxanomy{
     return $this;
   }
 
+  public function terms(){
+    $terms = [];
+    foreach(get_categories([
+      'taxonomy' => $this->id,
+      'orderby'  => 'name',
+      'order'    => 'ASC'
+    ]) as $term)
+      $terms[] = new \cw\wp\custom\Term($term, $this);
+
+    return $terms;
+  }
+
   public function publish(){
     $args           = $this->args;
     $args['labels'] = $this->labels;
