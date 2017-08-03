@@ -103,4 +103,12 @@ class Options{
       break;
     }
   }
+
+  public function __get($id){
+    $default = null;
+    if(isset($this->options[$id]))
+      $default = $this->options[$id]['default'];
+
+    return get_option($id, $default);
+  }
 }
