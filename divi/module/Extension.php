@@ -12,6 +12,7 @@ class Extension extends \ET_Builder_Module {
     parent::__construct();
     $this->path = $path;
     $this->uri  = '/modules/' . $this->moduleFolderName();
+    $this->enqueueShortcodeAssets();
   }
 
   public $whitelisted_fields = [];
@@ -37,7 +38,6 @@ class Extension extends \ET_Builder_Module {
 
     $this->fb_support       = true;
 
-    add_action( 'wp_enqueue_scripts', [$this, 'enqueueShortcodeAssets'], 1 );
 
     return $this;
   }
@@ -45,9 +45,7 @@ class Extension extends \ET_Builder_Module {
   public function enqueueShortcodeAssets(){
     global $post, $childAssets;
 
-    if(!isset($post->post_content)
-    || !is_singular(array('post','page' ))
-    || !has_shortcode($post->post_content, $this->slug))
+    if(!$this->isModuleInPost())
       return ;
 
     if(file_exists($this->path . '/css/module.css'))
@@ -55,6 +53,20 @@ class Extension extends \ET_Builder_Module {
 
     if(file_exists($this->path . '/js/module.js'))
       $childAssets->addScript($this->slug . '-js', $this->uri . '/js/module.js');
+  }
+
+  public function isModuleInPost($postForTest = null){
+    if($post === null){
+      global $post;
+      $postForTest = $post;
+    }
+
+    if(!isset($postForTest->post_content)
+    || !is_singular()
+    || !has_shortcode($postForTest->post_content, $this->slug))
+      return false;
+
+    return true;
   }
 
   protected function moduleDisplayName(){
