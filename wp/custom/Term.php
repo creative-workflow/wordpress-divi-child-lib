@@ -9,7 +9,7 @@ class Term{
   public $name;
   public $termId;
 
-  public function __construct($term, \cw\wp\custom\Taxanomy $taxanomy, $parent = null){
+  public function __construct($term, \cw\wp\custom\Taxanomy $taxanomy = null, $parent = null){
     $this->term     = $term;
     $this->id       = $term->term_id;
     $this->name     = $term->name;
@@ -17,7 +17,7 @@ class Term{
     $this->parent   = $parent;
   }
 
-  public function posts(){
+  public function posts($postClass=null){
     $posts = get_posts(
       [
         'posts_per_page' => -1,
@@ -31,6 +31,12 @@ class Term{
         ]
       ]
     );
+
+    if($postClass !== null){
+      $posts = array_map(function ($post) use($postClass){
+        return new $postClass($post);
+      }, $posts);
+    }
 
     return $posts;
   }
@@ -46,5 +52,9 @@ class Term{
     }
 
     return $children;
+  }
+
+  public function __toString(){
+    return $this->name;
   }
 }
