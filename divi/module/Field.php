@@ -46,6 +46,10 @@ class Field{
   }
 
   public function typeHtml(){
+    $this->module->beforeRender(function($module, &$variables){
+      $variables[$this->id] = $module->shortcode_content;
+    });
+    
     return $this->type('tiny_mce');
   }
 

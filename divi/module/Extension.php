@@ -7,6 +7,7 @@ class Extension extends \ET_Builder_Module {
   protected $view   = null;
   protected $uri    = null;
   public    $path   = null;
+  protected $beforeRenderCallback;
 
   public function __construct($path = null){
     parent::__construct();
@@ -176,7 +177,14 @@ class Extension extends \ET_Builder_Module {
     return $fields;
   }
 
+  public function beforeRender($callback){
+    $this->beforeRenderCallback = $callback;
+  }
+
   public function render($view, $variables=[]){
+    if($this->beforeRenderCallback){
+      call_user_func_array($this->beforeRenderCallback, [$this, &$variables]);
+    }
     return $this->getView()->renderModule($view, $variables);
   }
 
