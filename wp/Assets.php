@@ -3,76 +3,59 @@
 namespace cw\wp;
 
 class Assets{
-  protected $scripts = [];
-  protected $inlineScripts = [];
-  protected $styles = [];
-
-  protected $adminScripts = [];
-  protected $adminStyles = [];
-
-  protected $conditionals = [];
-
-  public function __construct(){
-    $this->bootstrap();
-  }
-
   public function conditional($callable){
-    $this->conditionals[] = $callable;
+    add_action('wp_enqueue_scripts', function() use($callable){
+      call_user_func($callable, $this);
+    });
+
     return $this;
   }
 
-  protected function bootstrap(){
-    add_action('wp_enqueue_scripts', [$this, 'enqueueAssets']);
-    add_action('admin_enqueue_scripts', [$this, 'enqueueAdminAssets']);
-  }
-
   public function addStylesheet($handle, $uri, $dependencies = [], $version = 1){
-    $this->styles[] = [
-      'handle'       => $handle,
-      'uri'          => $uri,
-      'dependencies' => $dependencies,
-      'version'      => $version
-    ];
+    $uri = $this->expandPath($uri);
+
+    add_action('wp_enqueue_scripts', function() use($handle, $uri, $dependencies, $version){
+      wp_enqueue_style($handle, $uri, $dependencies, $version);
+    });
+
     return $this;
   }
 
   public function addAdminStylesheet($handle, $uri, $dependencies = [], $version = 1){
-    $this->adminStyles[] = [
-      'handle'       => $handle,
-      'uri'          => $uri,
-      'dependencies' => $dependencies,
-      'version'      => $version
-    ];
+    $uri = $this->expandPath($uri);
+
+    add_action('admin_enqueue_scripts', function() use($handle, $uri, $dependencies, $version){
+      wp_enqueue_style($handle, $uri, $dependencies, $version);
+    });
+
     return $this;
   }
 
   public function addParentStylesheet($uri, $dependencies = [], $version = 1){
-    $this->addStylesheet(
-                      'parent-style',
-                      get_template_directory_uri() . '/' . $uri,
-                      $dependencies,
-                      $version
-                    );
+    $uri = get_template_directory_uri() . '/' . $uri;
+
+    add_action('wp_enqueue_scripts', function() use($handle, $uri, $dependencies, $version){
+      wp_enqueue_style('parent-style', $uri, $dependencies, $version);
+    });
+
     return $this;
   }
 
   public function addScript($handle, $uri, $dependencies = [], $version = 1, $inFooter = true){
-    $this->scripts[] = [
-      'handle'       => $handle,
-      'uri'          => $uri,
-      'dependencies' => $dependencies,
-      'version'      => $version,
-      'in_footer'    => $inFooter
-    ];
+    $uri = $this->expandPath($uri);
+
+    add_action('wp_enqueue_scripts', function() use($handle, $uri, $dependencies, $version, $inFooter){
+      wp_enqueue_script($handle, $uri, $dependencies, $version, $inFooter);
+    });
+
     return $this;
   }
 
   public function addInlineScript($handle, $content, $position = 'after'){
-    $this->inlineScripts[] = [
-      'handle'   => $handle,
-      'content'  => $content,
-      'position' => $position
-    ];
+    add_action('wp_enqueue_scripts', function() use($handle, $content, $position){
+      wp_add_inline_script($handle, $content, $position);
+    });
+
     return $this;
   }
 
@@ -84,60 +67,21 @@ class Assets{
     return get_stylesheet_directory_uri() . '/' . $uri;
   }
 
-  public function enqueueAssets(){
-    foreach($this->conditionals as $conditional)
-      call_user_func($conditional, $this);
-
-    foreach($this->styles as $style){
-      $uri = $this->expandPath($style['uri']);
-      wp_enqueue_style($style['handle'], $uri, $style['dependencies'], $style['version']);
-    }
-
-    foreach($this->scripts as $script){
-      $uri = $this->expandPath($script['uri']);
-      wp_enqueue_script($script['handle'], $uri, $script['dependencies'], $script['version'], $script['in_footer']);
-    }
-
-    foreach($this->inlineScripts as $script){
-      wp_add_inline_script($script['handle'], $script['content'], $script['position']);
-    }
-  }
-
-  public function enqueueAdminAssets(){
-    foreach($this->adminStyles as $style){
-      $uri = $this->expandPath($style['uri']);
-
-      wp_enqueue_style($style['handle'], $uri, $style['dependencies'], $style['version']);
-    }
-
-    foreach($this->adminScripts as $script){
-      $uri = $this->expandPath($script['uri']);
-
-      wp_enqueue_script($script['handle'], $uri, $script['dependencies'], $script['version'], $script['in_footer']);
-    }
-  }
-
   public function is_login_page() {
     return in_array($GLOBALS['pagenow'], array('wp-login.php', 'wp-register.php'));
   }
 
-  protected $replaceJquery;
-  public function replaceJquery($with = null){
+  public function replaceJquery($with){
     if(is_admin() || $this->is_login_page())
       return $this;
 
-    if($with){
-      $this->replaceJquery = $with;
-      add_action('init', [$this, 'replaceJquery']);
-      return $this;
-    }
+    add_action('init', function() use($with){
+      wp_deregister_script('jquery');
+      wp_register_script('jquery', $with, false, false, true);
+      wp_enqueue_script('jquery');
+    });
 
-    if(!$this->replaceJquery || is_admin())
-      return ;
-
-    wp_deregister_script('jquery');
-    wp_register_script('jquery', $this->replaceJquery, false, false, true);
-    wp_enqueue_script('jquery');
+    return $this;
   }
 
   public function removeEmojiScript(){
@@ -153,6 +97,7 @@ class Assets{
     add_action( 'post_updated', function() use($file){
       touch($file);
     }, 10, 3 );
+
     return $this;
   }
 
@@ -163,6 +108,7 @@ class Assets{
       foreach($scripts as $script)
         wp_dequeue_script($script);
     }, 100 );
+
     return $this;
   }
 
@@ -173,6 +119,7 @@ class Assets{
       foreach($styles as $style)
         wp_dequeue_style($style);
     }, 100 );
+
     return $this;
   }
 
@@ -183,5 +130,4 @@ class Assets{
     } );
     return $this;
   }
-
 }

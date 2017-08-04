@@ -17,18 +17,17 @@ class Post{
     return get_permalink($this->post);
   }
 
-  public function terms($id){
-    if(is_object($id)
-    && is_a($id, '\cw\wp\custom\Taxanomy'))
-      $id = $id->id;
+  public function terms($termId){
+    if(is_a($termId, '\cw\wp\custom\Taxanomy'))
+      $termId = $termId->id;
 
-    $terms = [];
-    foreach(wp_get_post_terms($this->post->ID, $id, [
+    $terms = wp_get_post_terms($this->post->ID, $termId, [
       'orderby'  => 'name',
       'order'    => 'ASC'
-    ]) as $term)
-      $terms[] = new \cw\wp\custom\Term($term);
+    ]);
 
-    return $terms;
+    return array_map(function($term){
+      return new \cw\wp\custom\Term($term);
+    }, $terms);
   }
 }
