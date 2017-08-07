@@ -22,6 +22,8 @@ class Term{
       [
         'posts_per_page' => -1,
         'post_type' => $this->taxanomy->objectType,
+        'orderby'    => 'menu_order',
+        'sort_order' => 'asc',
         'tax_query' => [
           [
             'taxonomy' => $this->taxanomy->id,
