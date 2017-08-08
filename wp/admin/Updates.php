@@ -21,43 +21,43 @@ class Updates{
     self::enableMajorCoreAutoupdates();
   }
 
-  public static function enableMinorCoreAutoupdates(){
+  public static function enableMinorCoreAutoUpdates(){
     self::set('allow_minor_auto_core_updates');
   }
 
-  public static function disableMinorCoreAutoupdates(){
+  public static function disableMinorCoreAutoUpdates(){
     self::set('allow_minor_auto_core_updates', false);
   }
 
-  public static function enableMajorCoreAutoupdates(){
+  public static function enableMajorCoreAutoUpdates(){
     self::set('allow_major_auto_core_updates');
   }
 
-  public static function disableMajorCoreAutoupdates(){
+  public static function disableMajorCoreAutoUpdates(){
     self::set('allow_major_auto_core_updates', false);
   }
 
-  public static function enablePluginAutoupdates(){
+  public static function enablePluginAutoUpdates(){
     self::set('auto_update_plugin');
   }
 
-  public static function disablePluginAutoupdates(){
+  public static function disablePluginAutoUpdates(){
     self::set('auto_update_plugin', false);
   }
 
-  public static function enableThemeAutoupdates(){
+  public static function enableThemeAutoUpdates(){
     self::set('auto_update_theme');
   }
 
-  public static function disableThemeAutoupdates(){
+  public static function disableThemeAutoUpdates(){
     self::set('auto_update_theme', false);
   }
 
-  public static function enableTranslationAutoupdates(){
+  public static function enableTranslationAutoUpdates(){
     self::set('auto_update_translation');
   }
 
-  public static function disableTranslationAutoupdates(){
+  public static function disableTranslationAutoUpdates(){
     self::set('auto_update_translation', false);
   }
 }
