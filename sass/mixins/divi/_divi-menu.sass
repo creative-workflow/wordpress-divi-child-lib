@@ -25,3 +25,14 @@
 @mixin make-divi-header-unfixed
 	.et_fixed_nav #main-header, .et_fixed_nav #top-header
 		position: absolute !important
+
+@mixin set-divi-burger-menu-font-size($size)
+	#et_mobile_nav_menu
+	  .mobile_nav
+      .mobile_menu_bar
+        &:before
+          font-size: $size
+
+@mixin divi-top-menu
+	#et-top-navigation
+		@content
