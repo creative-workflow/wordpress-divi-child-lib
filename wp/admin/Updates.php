@@ -3,8 +3,14 @@
 namespace cw\wp\admin;
 
 class Updates{
+  protected static function set($what, $enable = true){
+    remove_all_filters($what);
+    $enableOrDisable = $enable ? '__return_true' : '__return_false';
+    add_filter($what, $enableOrDisable);
+  }
+
   public static function disableAllAutoUpdates(){
-    add_filter('automatic_updater_disabled', '__return_true');
+    self::set('automatic_updater_disabled');
   }
 
   public static function enableAllAutoUpdates(){
@@ -16,22 +22,42 @@ class Updates{
   }
 
   public static function enableMinorCoreAutoupdates(){
-    add_filter( 'allow_minor_auto_core_updates', '__return_true' );
+    self::set('allow_minor_auto_core_updates');
+  }
+
+  public static function disableMinorCoreAutoupdates(){
+    self::set('allow_minor_auto_core_updates', false);
   }
 
   public static function enableMajorCoreAutoupdates(){
-    add_filter( 'allow_major_auto_core_updates', '__return_true' );
+    self::set('allow_major_auto_core_updates');
+  }
+
+  public static function disableMajorCoreAutoupdates(){
+    self::set('allow_major_auto_core_updates', false);
   }
 
   public static function enablePluginAutoupdates(){
-    add_filter('auto_update_plugin', '__return_true');
+    self::set('auto_update_plugin');
+  }
+
+  public static function disablePluginAutoupdates(){
+    self::set('auto_update_plugin', false);
   }
 
   public static function enableThemeAutoupdates(){
-    add_filter('auto_update_theme', '__return_true');
+    self::set('auto_update_theme');
+  }
+
+  public static function disableThemeAutoupdates(){
+    self::set('auto_update_theme', false);
   }
 
   public static function enableTranslationAutoupdates(){
-    add_filter('auto_update_translation', '__return_true');
+    self::set('auto_update_translation');
+  }
+
+  public static function disableTranslationAutoupdates(){
+    self::set('auto_update_translation', false);
   }
 }
