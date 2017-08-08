@@ -1,5 +1,9 @@
 @import 'variables'
 
+@mixin between($from, $to)
+  @media (min-width: $from) and (max-width: $to)
+    @content
+
 @mixin max-width($width)
   @media (max-width: $width)
     @content
