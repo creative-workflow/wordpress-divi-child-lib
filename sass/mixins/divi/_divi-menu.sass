@@ -34,5 +34,11 @@
           font-size: $size
 
 @mixin divi-top-menu
-	#et-top-navigation
-		@content
+	#main-header
+		#et-top-navigation
+			@content
+
+@mixin divi-top-menu-sticky
+	#main-header.et-fixed-header
+		#et-top-navigation
+			@content
