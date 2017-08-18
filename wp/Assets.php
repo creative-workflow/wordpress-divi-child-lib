@@ -33,9 +33,8 @@ class Assets{
 
   public function addParentStylesheet($uri, $dependencies = [], $version = 1){
     $uri = get_template_directory_uri() . '/' . $uri;
-
-    add_action('wp_enqueue_scripts', function() use($handle, $uri, $dependencies, $version){
-      wp_enqueue_style('parent-style', $uri, $dependencies, $version);
+    add_action('wp_enqueue_scripts', function() use($uri, $dependencies, $version){
+      wp_enqueue_style('parent-theme', $uri, $dependencies, $version);
     });
 
     return $this;
