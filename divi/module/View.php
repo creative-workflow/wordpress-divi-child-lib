@@ -39,7 +39,8 @@ class View{
   }
 
   public function renderData(){
-    if(!isset($this->variables['data']) || !is_array($data) || empty($data))
+    $data = $this->variables['data'];
+    if(!isset($data) || !is_array($data) || empty($data))
       return '';
 
     $tmp = array_map(function($key, $value){
