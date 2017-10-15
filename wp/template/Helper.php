@@ -10,4 +10,8 @@ class Helper{
   public static function postTemplate(){
     return get_query_template('single');
   }
+
+  public static function parentTemplate($which){
+    return get_template_directory() . '/' .$which;
+  }
 }
