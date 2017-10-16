@@ -6,12 +6,13 @@ class MetaBox{
   public $id;
   public $title;
   public $screen       = null;
-  public $context      = 'advanced';
+  public $context      = 'side';
   public $priority     = 'default';
   public $callback;
   public $callbackArgs = null;
   public $type         = 'html';
   public $default      = '';
+  public $description   = '';
 
   public function __construct($id){
     $this->id = $id;
@@ -21,6 +22,11 @@ class MetaBox{
 
   public function title($name){
     $this->title = $name;
+    return $this;
+  }
+
+  public function description($description){
+    $this->description = $description;
     return $this;
   }
 
@@ -82,8 +88,16 @@ class MetaBox{
     return 'meta_' . $this->id . '_content';
   }
 
-  public function content($post){
-    $content = get_post_meta($post->ID, $this->metaId(), true);
+  public function content($postOrId = null){
+    if($postOrId === null){
+      global $post;
+      $postOrId = $post;
+    }
+
+    if(is_object($postOrId))
+      $postOrId = $postOrId->ID;
+
+    $content = get_post_meta($postOrId, $this->metaId(), true);
 
     if($content !== '')
       return $content;
@@ -93,6 +107,8 @@ class MetaBox{
 
   public function show($post, $metabox){
     $content = $this->content($post);
+    if($this->description)
+      echo '<i>'.$this->description.'</i><br>';
     switch($this->type){
       case 'html':
         wp_editor($content, $this->metaId(), array(
