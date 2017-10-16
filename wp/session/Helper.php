@@ -11,7 +11,11 @@ class Helper{
           session_start();
 
     }, 1);
-    add_action('wp_logout', 'session_destroy');
-    add_action('wp_login', 'session_destroy');
+    add_action('wp_logout', function(){
+      session_destroy();
+    });
+    add_action('wp_login', function(){
+      session_destroy();
+    });
   }
 }
