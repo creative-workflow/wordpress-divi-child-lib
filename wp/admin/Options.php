@@ -34,6 +34,16 @@ class Options{
     return $this;
   }
 
+  public function typeTextArea($id, $displayName, $default = null){
+    $this->options[$id]= [
+      'display_name' => $displayName,
+      'type'         => 'textarea',
+      'default'      => $default
+    ];
+
+    return $this;
+  }
+
   public function typePlain($id, $displayName, $default = null){
     $this->options[$id]= [
       'display_name' => $displayName,
@@ -96,6 +106,10 @@ class Options{
     switch($config['type']){
       case 'plain':
         return @$config['default'];
+      case 'textarea':
+        $value = esc_attr( get_option($name, @$config['default']) );
+        return '<textarea name="'.$name.'">'.$value.'</textarea>';
+      break;
       case 'text':
       default:
         $value = esc_attr( get_option($name, @$config['default']) );
