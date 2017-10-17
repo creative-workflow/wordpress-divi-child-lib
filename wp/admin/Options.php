@@ -46,11 +46,12 @@ class Options{
     return $this;
   }
 
-  public function typePlain($id, $displayName, $default = null){
+  public function typePlain($id, $displayName, $default = null, $jsExport=true){
     $this->options[$id]= [
       'display_name' => $displayName,
       'type'         => 'plain',
-      'default'      => $default
+      'default'      => $default,
+      'js_export'    => $jsExport
     ];
 
     return $this;
