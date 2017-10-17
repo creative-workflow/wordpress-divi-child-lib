@@ -24,21 +24,23 @@ class Options{
     return $this;
   }
 
-  public function typeText($id, $displayName, $default = null){
+  public function typeText($id, $displayName, $default = null, $jsExport=true){
     $this->options[$id]= [
       'display_name' => $displayName,
       'type'         => 'text',
-      'default'      => $default
+      'default'      => $default,
+      'js_export'    => $jsExport
     ];
 
     return $this;
   }
 
-  public function typeTextArea($id, $displayName, $default = null){
+  public function typeTextArea($id, $displayName, $default = null, $jsExport=true){
     $this->options[$id]= [
       'display_name' => $displayName,
       'type'         => 'textarea',
-      'default'      => $default
+      'default'      => $default,
+      'js_export'    => $jsExport
     ];
 
     return $this;
@@ -69,10 +71,12 @@ class Options{
 
   public function toJsObject(){
     $options = [];
-    foreach($this->options as $optionName => $optionConfig)
-      $options[] = "'$optionName': '".get_option($optionName)."'";
+    foreach($this->options as $optionName => $optionConfig){
+      if($optionConfig['js_export'])
+        $options[] = "'$optionName': '".get_option($optionName)."'";
+    }
 
-     return 'var '.$this->id.' = { '. implode(',', $options) .' };';
+    return 'var '.$this->id.' = { '. implode(',', $options) .' };';
   }
 
   public function toJsFile($file){
