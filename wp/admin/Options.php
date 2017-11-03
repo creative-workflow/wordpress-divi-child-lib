@@ -85,7 +85,7 @@ class Options{
     $options = [];
     foreach($this->options as $optionName => $optionConfig){
       if($optionConfig['js_export'])
-        $options[] = "'$optionName': '".get_option($optionName)."'";
+        $options[] = "'$optionName': '".$this->{$optionName}."'";
     }
 
     return 'var '.$this->id.' = { '. implode(',', $options) .' };';
