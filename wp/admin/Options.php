@@ -57,6 +57,17 @@ class Options{
     return $this;
   }
 
+  public function typeHidden($id, $displayName, $default = null, $jsExport=true){
+    $this->options[$id]= [
+      'display_name' => $displayName,
+      'type'         => 'hidden',
+      'default'      => $default,
+      'js_export'    => $jsExport
+    ];
+
+    return $this;
+  }
+
   public function createMenu() {
     add_menu_page($this->menuName,
                   $this->menuName,
@@ -120,6 +131,7 @@ class Options{
         $value = esc_attr( get_option($name, @$config['default']) );
         return '<input type="text" name="'.$name.'" value="'.$value.'"/>';
       break;
+      case 'hidden': break;
     }
   }
 
