@@ -129,4 +129,11 @@ class Assets{
     } );
     return $this;
   }
+
+  public function addBodyData(array $data){
+    add_filter( 'body_data', function($dataInput = []) use($data){
+      return array_merge_recursive($dataInput, $data);
+    } );
+    return $this;
+  }
 }
