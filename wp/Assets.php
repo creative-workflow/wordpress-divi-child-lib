@@ -12,7 +12,7 @@ class Assets{
   }
 
   public function addStylesheet($handle, $uri, $dependencies = [], $version = 1){
-    $uri = $this->expandPath($uri);
+    $uri = static::expandPath($uri);
 
     add_action('wp_enqueue_scripts', function() use($handle, $uri, $dependencies, $version){
       wp_enqueue_style($handle, $uri, $dependencies, $version);
@@ -22,7 +22,7 @@ class Assets{
   }
 
   public function addAdminStylesheet($handle, $uri, $dependencies = [], $version = 1){
-    $uri = $this->expandPath($uri);
+    $uri = static::expandPath($uri);
 
     add_action('admin_enqueue_scripts', function() use($handle, $uri, $dependencies, $version){
       wp_enqueue_style($handle, $uri, $dependencies, $version);
@@ -40,25 +40,25 @@ class Assets{
     return $this;
   }
 
-  public function addScript($handle, $uri, $dependencies = [], $version = 1, $inFooter = true){
-    $uri = $this->expandPath($uri);
+  public function addScript($handle, $uri, $dependencies = [], $version = 1, $inFooter = true, $priority=1){
+    $uri = static::expandPath($uri);
 
     add_action('wp_enqueue_scripts', function() use($handle, $uri, $dependencies, $version, $inFooter){
       wp_enqueue_script($handle, $uri, $dependencies, $version, $inFooter);
-    });
+    }, $priority);
 
     return $this;
   }
 
-  public function addInlineScript($handle, $content, $position = 'after'){
+  public function addInlineScript($handle, $content, $position = 'after', $priority=1){
     add_action('wp_enqueue_scripts', function() use($handle, $content, $position){
       wp_add_inline_script($handle, $content, $position);
-    });
+    }, $priority);
 
     return $this;
   }
 
-  public function expandPath($uri){
+  public static function expandPath($uri){
     if(strpos($uri, '://') !== false
     || strpos($uri, '//')  === 0)
       return $uri;
