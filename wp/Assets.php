@@ -108,6 +108,11 @@ class Assets{
         wp_dequeue_script($script);
     }, 100 );
 
+    add_action( 'init', function() use($scripts){
+      foreach($scripts as $script)
+        wp_deregister_script($script);
+    });
+
     return $this;
   }
 
