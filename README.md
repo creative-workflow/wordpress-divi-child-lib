@@ -1,7 +1,10 @@
 # wordpress-divi-child-lib
-Make Divi module development smart for developers. See module implemenatation here: https://github.com/creative-workflow/wordpress-divi-child-modules/blob/master/hello-world/Module.php
 
-More information will follow some day ;P
+This repository will no longer be updated and splitted up into
+  * https://github.com/creative-workflow/lib-php
+  * https://github.com/creative-workflow/lib-wordpress
+  * https://github.com/creative-workflow/lib-divi
+  * https://github.com/creative-workflow/lib-sass
 
 ### setup
 ```
